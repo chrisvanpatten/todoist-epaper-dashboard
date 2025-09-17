@@ -1,3 +1,5 @@
+import Twemoji from 'react-twemoji';
+
 export default function Project(props) {
   const {
     project,
@@ -5,7 +7,7 @@ export default function Project(props) {
 
   return (
     <div>
-      {project}
+      <Twemoji options={{className: 'twemoji'}}>{project}</Twemoji>
     </div>
   );
 }

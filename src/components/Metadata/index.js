@@ -13,7 +13,7 @@ export default function Metadata(props) {
       font-size: 13px;
       font-weight: 400;
 
-      &:has(:only-child) {
+      &:has(> div:only-child) {
         justify-content: flex-end;
       }
     `,
