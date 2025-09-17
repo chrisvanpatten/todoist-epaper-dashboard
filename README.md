@@ -10,6 +10,12 @@ optimized for clean display on a monochrome e-paper screen. There is minimal
 use of color, and typography was carefully designed to ensure readability and
 clarity on the reTerminal's relatively low DPI display.
 
+I use emoji in my Todoist project names and tasks, however the SenseCraft web
+environment (Headless Chrome running on Linux) does not support emoji natively.
+I have set up a React implementation of Twemoji to solve for this use-case,
+with the important caveat that the emoji imagery is not optimized for black and
+white displays.
+
 ## Use
 
 Add your personal API token from Todoist's
