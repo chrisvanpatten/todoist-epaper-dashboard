@@ -6,9 +6,9 @@ todo list so it can be displayed on an 800x480px e-paper display, such as the
 
 The layout is a rough imitation of Todoist's
 ["Upcoming" view](https://www.todoist.com/inspiration/todoist-upcoming-view),
-which has been optimized for clean display on a monochrome e-paper screen.
-There is minimal use of color, and typography was carefully designed to ensure
-readability and clarity on the reTerminal's relatively low DPI display.
+optimized for clean display on a monochrome e-paper screen. There is minimal
+use of color, and typography was carefully designed to ensure readability and
+clarity on the reTerminal's relatively low DPI display.
 
 ## Use
 

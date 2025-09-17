@@ -2,6 +2,7 @@
   "name": "dashboard-app",
   "version": "0.1.0",
   "author": "Chris Van Patten (https://www.chrisvanpatten.com)",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
