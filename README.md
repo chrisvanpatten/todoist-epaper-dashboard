@@ -34,4 +34,4 @@ minutes.
 
 ## License
 
-Copyeright © 2025 Chris Van Patten. Licensed under the MIT license.
+Copyright © 2025 Chris Van Patten. Licensed under the MIT license.
