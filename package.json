@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-	"build": "next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -14,9 +14,12 @@
     "@doist/todoist-api-typescript": "^5.5.0",
     "@emotion/css": "^11.13.5",
     "@js-temporal/polyfill": "^0.5.1",
+    "axios": "^1.12.2",
     "next": "^15.5.0",
+    "node-fetch": "^3.3.2",
     "react-markdown": "^10.1.0",
-    "react-twemoji": "^0.6.0"
+    "react-twemoji": "^0.6.0",
+    "ts-ics": "^2.3.0"
   },
   "devDependencies": {
     "eslint-config-next": "^15.5.0"
