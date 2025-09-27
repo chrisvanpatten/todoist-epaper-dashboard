@@ -5,13 +5,19 @@ export default function getCleanEvent(event) {
     start,
     end,
     summary,
-    location,
+    location = null,
   } = event;
 
+  const allDay = start.type === 'DATE' && end.type === 'DATE';
+
+  const startTemporal = getTemporalFromDateTimeZone(start.date, start?.local?.tzoffset ?? 'America/New_York');
+  const endTemporal = getTemporalFromDateTimeZone(end.date, end?.local?.tzoffset ?? 'America/New_York');
+
   return {
-    start: getTemporalFromDateTimeZone(start.date, start?.local?.tzoffset ?? 'America/New_York').toLocaleString(),
-    end: getTemporalFromDateTimeZone(end.date, end?.local?.tzoffset ?? 'America/New_York').toLocaleString(),
-    summary,
-    location: location ?? null,
+    start: startTemporal.toLocaleString(),
+    end: endTemporal.toLocaleString(),
+    allDay,
+    summary: summary?.trim() ?? null,
+    location,
   }
 }

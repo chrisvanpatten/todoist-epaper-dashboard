@@ -1,11 +1,11 @@
 import Head from 'next/head'
+import Container from '@/components/Container';
 import TodoItem from '@/components/TodoItem';
 import TodoItems from '@/components/TodoItems';
 import getProjects from '@/api/todoist/getProjects';
 import getTasksByFilter from '@/api/todoist/getTasksByFilter';
 import getTitleFromTemporal from '@/utils/getTitleFromTemporal';
 import {Temporal} from '@js-temporal/polyfill';
-import {css, cx} from '@emotion/css';
 
 export default function Dashboard(props) {
   const {
@@ -13,34 +13,8 @@ export default function Dashboard(props) {
     taskGroups = [],
   } = props;
 
-  /**
-   * Set to `true` to rotate the display 90º, so it appears vertically on the
-   * reTerminal. Setting to `false` makes development a bit easier.
-   */
-  const rotate = true;
-
-  const styles = {
-    container: css`
-      width: 480px;
-      height: 800px;
-      padding: 0.4em 0.5em;
-      margin: 0;
-
-      .twemoji {
-        width: auto;
-        height: 1em;
-        display: inline-block;
-        position: relative;
-        top: 2px;
-      }
-    `,
-    rotate: css`
-      transform: rotate(90deg) translate(-160px, -160px);
-    `,
-  };
-
   return (
-    <div className={cx(styles.container, {[styles.rotate]: rotate})}>
+    <Container orientation="vertical" rotate={true}>
       <Head>
         <title>Dashboard</title>
       </Head>
@@ -58,7 +32,7 @@ export default function Dashboard(props) {
           ))}
         </TodoItems>
       ))}
-    </div>
+    </Container>
   )
 }
 

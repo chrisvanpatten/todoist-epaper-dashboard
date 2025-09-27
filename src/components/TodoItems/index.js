@@ -24,9 +24,9 @@ export default function TodoItems(props) {
   };
   
   return (
-    <>
+    <div>
       <h2 className={styles.title}>{title}</h2>
       <ul className={styles.todoItems}>{children}</ul>
-    </>
+    </div>
   );
 }

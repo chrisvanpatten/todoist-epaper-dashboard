@@ -1,4 +1,8 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import Block from '@/components/Block';
+import Container from '@/components/Container';
+import Event from '@/components/Event';
+import Events from '@/components/Events';
 import TodoItem from '@/components/TodoItem';
 import TodoItems from '@/components/TodoItems';
 import getEvents from '@/api/calendar/getEvents';
@@ -6,36 +10,16 @@ import getProjects from '@/api/todoist/getProjects';
 import getTasksByFilter from '@/api/todoist/getTasksByFilter';
 import getTitleFromTemporal from '@/utils/getTitleFromTemporal';
 import {Temporal} from '@js-temporal/polyfill';
-import {css, cx} from '@emotion/css';
 
 export default function Dashboard(props) {
   const {
-    events = '',
+    events = [],
     projects = {},
     taskGroups = [],
   } = props;
 
-  console.log(events);
-
-  const styles = {
-    container: css`
-      width: 800px;
-      height: 480px;
-      padding: 0.4em 0.5em;
-      margin: 0;
-
-      .twemoji {
-        width: auto;
-        height: 1em;
-        display: inline-block;
-        position: relative;
-        top: 2px;
-      }
-    `,
-  };
-
   return (
-    <div className={styles.container}>
+    <Container orientation="horizontal" columns={true}>
       <Head>
         <title>Dashboard</title>
       </Head>
@@ -53,16 +37,18 @@ export default function Dashboard(props) {
           ))}
         </TodoItems>
       ))}
-    </div>
+
+      <Events>
+        {events.map((event) => <Event {...event} key={event.summary} />)}
+      </Events>
+    </Container>
   )
 }
 
 export async function getServerSideProps() {
-  const events = await getEvents();
-  console.log(events);
   return {
     props: {
-      events: events,
+      events: await getEvents(),
       projects: await getProjects(),
       taskGroups: [
         {
