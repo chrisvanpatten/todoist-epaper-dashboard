@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Block from '@/components/Block';
 import Container from '@/components/Container';
 import Event from '@/components/Event';
 import Events from '@/components/Events';
@@ -17,6 +16,8 @@ export default function Dashboard(props) {
     projects = {},
     taskGroups = [],
   } = props;
+
+  console.log(events.slice(0, 3));
 
   return (
     <Container orientation="horizontal" columns={true}>

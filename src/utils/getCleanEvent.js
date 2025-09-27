@@ -10,8 +10,10 @@ export default function getCleanEvent(event) {
 
   const allDay = start.type === 'DATE' && end.type === 'DATE';
 
-  const startTemporal = getTemporalFromDateTimeZone(start.date, start?.local?.tzoffset ?? 'America/New_York');
-  const endTemporal = getTemporalFromDateTimeZone(end.date, end?.local?.tzoffset ?? 'America/New_York');
+//  console.log(start);
+
+  const startTemporal = getTemporalFromDateTimeZone(start.date, start?.local?.tzoffset ?? 'America/New_York', allDay);
+  const endTemporal = getTemporalFromDateTimeZone(end.date, end?.local?.tzoffset ?? 'America/New_York', allDay);
 
   return {
     start: startTemporal.toLocaleString(),

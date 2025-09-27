@@ -4,6 +4,8 @@ export default function Event(props) {
   const {
     summary = '',
     allDay = false,
+    start,
+    end,
   } = props;
 
   const styles = {
@@ -18,6 +20,6 @@ export default function Event(props) {
   };
 
   return (
-    <li className={cx(styles.event, {[styles.allDay]: allDay})}>{summary}</li>
+    <li className={cx(styles.event, {[styles.allDay]: allDay})}>{summary} {start}–{end}</li>
   );
 }
