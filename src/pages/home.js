@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Container from '@/components/Container';
 import Event from '@/components/Event';
 import Events from '@/components/Events';
-import TodoItem from '@/components/TodoItem';
 import TodoItems from '@/components/TodoItems';
 import getEvents from '@/api/calendar/getEvents';
 import getProjects from '@/api/todoist/getProjects';
@@ -25,18 +24,8 @@ export default function Dashboard(props) {
         <title>Dashboard</title>
       </Head>
 
-      {taskGroups.map((group) => (
-        <TodoItems title={group.title} key={group.title}>
-          {group.tasks.map((task) => (
-            <TodoItem
-              key={task.id}
-              dueDate={group?.displayDate && task.due.date}
-              project={projects?.[task.projectId]}
-            >
-              {task.content}
-            </TodoItem>
-          ))}
-        </TodoItems>
+      {taskGroups.map((taskGroup) => (
+        <TodoItems {...taskGroup} projects={projects} key={taskGroup.title} />
       ))}
 
       <Events>

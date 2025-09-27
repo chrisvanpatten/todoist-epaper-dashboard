@@ -1,9 +1,13 @@
 import {css} from '@emotion/css';
+import TodoItem from '@/components/TodoItem';
 
 export default function TodoItems(props) {
   const {
-    children,
     title = '',
+    tasks = [],
+    projects = [],
+    showDate = true,
+    showProject = true,
   } = props;
 
   const styles = {
@@ -26,7 +30,18 @@ export default function TodoItems(props) {
   return (
     <div>
       <h2 className={styles.title}>{title}</h2>
-      <ul className={styles.todoItems}>{children}</ul>
+      <ul className={styles.todoItems}>
+        {tasks.map((task) => (
+          <TodoItem
+            key={task.id}
+            dueDate={showDate && task.due.date}
+            project={projects?.[task.projectId]}
+            project={showProject && projects?.[task.projectId]}
+          >
+            {task.content}
+          </TodoItem>
+        ))}
+      </ul>
     </div>
   );
 }

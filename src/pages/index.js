@@ -19,18 +19,8 @@ export default function Dashboard(props) {
         <title>Dashboard</title>
       </Head>
 
-      {taskGroups.map((group) => (
-        <TodoItems title={group.title} key={group.title}>
-          {group.tasks.map((task) => (
-            <TodoItem
-              key={task.id}
-              dueDate={group?.displayDate && task.due.date}
-              project={projects?.[task.projectId]}
-            >
-              {task.content}
-            </TodoItem>
-          ))}
-        </TodoItems>
+      {taskGroups.map((taskGroup) => (
+        <TodoItems {...taskGroup} projects={projects} key={taskGroup.title} />
       ))}
     </Container>
   )
@@ -44,23 +34,27 @@ export async function getServerSideProps() {
         {
           title: 'Overdue',
           tasks: await getTasksByFilter('!no date & overdue'),
-          displayDate: true,
+          showDate: true,
         },
         {
           title: getTitleFromTemporal(Temporal.Now.plainDateISO()),
           tasks: await getTasksByFilter('today'),
+          showDate: false,
         },
         {
           title: getTitleFromTemporal(Temporal.Now.plainDateISO().add({days: 1})),
           tasks: await getTasksByFilter('tomorrow'),
+          showDate: false,
         },
         {
           title: getTitleFromTemporal(Temporal.Now.plainDateISO().add({days: 2})),
           tasks: await getTasksByFilter('in 2 days'),
+          showDate: false,
         },
         {
           title: getTitleFromTemporal(Temporal.Now.plainDateISO().add({days: 3})),
           tasks: await getTasksByFilter('in 3 days'),
+          showDate: false,
         },
       ],
     },

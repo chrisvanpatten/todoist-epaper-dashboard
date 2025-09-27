@@ -1,4 +1,5 @@
-import getTemporalFromDateTimeZone from '@/utils/getTemporalFromDateTimeZone';
+import getTemporalFromIcsDate from '@/utils/getTemporalFromIcsDate';
+import getTemporalFromIcsDateTime from '@/utils/getTemporalFromIcsDateTime';
 
 export default function getCleanEvent(event) {
   const {
@@ -10,10 +11,14 @@ export default function getCleanEvent(event) {
 
   const allDay = start.type === 'DATE' && end.type === 'DATE';
 
-//  console.log(start);
+  const getTemporal = (date) => {
+    return allDay
+      ? getTemporalFromIcsDate(date, 'America/New_York')
+      : getTemporalFromIcsDateTime(date);
+  };
 
-  const startTemporal = getTemporalFromDateTimeZone(start.date, start?.local?.tzoffset ?? 'America/New_York', allDay);
-  const endTemporal = getTemporalFromDateTimeZone(end.date, end?.local?.tzoffset ?? 'America/New_York', allDay);
+  const startTemporal = getTemporal(start.date);
+  const endTemporal = getTemporal(end.date);
 
   return {
     start: startTemporal.toLocaleString(),
