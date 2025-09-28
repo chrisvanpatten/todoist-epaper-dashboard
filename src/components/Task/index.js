@@ -5,7 +5,7 @@ import Project from '@/components/Project';
 import Twemoji from 'react-twemoji';
 import {css} from '@emotion/css';
 
-export default function TodoItem(props) {
+export default function Task(props) {
   const {
     children,
     dueDate = null,
@@ -13,9 +13,9 @@ export default function TodoItem(props) {
   } = props;
 
   const styles = {
-    todoItem: css`
+    task: css`
       list-style: none;
-      padding: 0.5em 0;
+      padding: 0.5em 0 0.6em;
       margin: 0;
       border-bottom: 1px solid black;
       display: flex;
@@ -39,7 +39,7 @@ export default function TodoItem(props) {
   };
 
   return (
-    <li className={styles.todoItem}>
+    <li className={styles.task}>
       <div className={styles.checkbox} />
       <div className={styles.content}>
         <Twemoji options={{className: 'twemoji'}}><Markdown>{children}</Markdown></Twemoji>

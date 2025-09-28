@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {convertIcsCalendar} from 'ts-ics';
 import getCleanEvent from '@/utils/getCleanEvent';
-import getSerializableEvent from '@/utils/getSerializableEvent';
+import groupEventsByDate from '@/utils/groupEventsByDate';
 import isEventInRange from '@/utils/isEventInRange';
 import sortEvents from '@/utils/sortEvents';
 import {Temporal} from '@js-temporal/polyfill';
@@ -24,5 +24,5 @@ export default async function getEvents() {
   return filteredEvents
     .map(getCleanEvent)
     .toSorted(sortEvents)
-    .map(getSerializableEvent);
+    .reduce(groupEventsByDate, {});
 }

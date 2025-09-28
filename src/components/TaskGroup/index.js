@@ -1,7 +1,7 @@
 import {css} from '@emotion/css';
-import TodoItem from '@/components/TodoItem';
+import Task from '@/components/Task';
 
-export default function TodoItems(props) {
+export default function TaskGroup(props) {
   const {
     title = '',
     tasks = [],
@@ -16,7 +16,7 @@ export default function TodoItems(props) {
       margin: 0;
       padding: 0 0 0.5em;
     `,
-    todoItems: css`
+    taskGroup: css`
       margin: 0 0 2em;
       padding: 0;
 
@@ -30,16 +30,15 @@ export default function TodoItems(props) {
   return (
     <div>
       <h2 className={styles.title}>{title}</h2>
-      <ul className={styles.todoItems}>
+      <ul className={styles.taskGroup}>
         {tasks.map((task) => (
-          <TodoItem
+          <Task
             key={task.id}
-            dueDate={showDate && task.due.date}
-            project={projects?.[task.projectId]}
+            dueDate={showDate && task?.due?.date}
             project={showProject && projects?.[task.projectId]}
           >
             {task.content}
-          </TodoItem>
+          </Task>
         ))}
       </ul>
     </div>

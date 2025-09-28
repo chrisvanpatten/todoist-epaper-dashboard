@@ -23,7 +23,8 @@ export default function getCleanEvent(event) {
   return {
     start: startTemporal,
     // Small hack to ensure the allDay events end at 11:59, rather than 12:00
-    end: allDay ? endTemporal.subtract({seconds: 1}) : endTemporal,
+    //end: allDay ? endTemporal.subtract({seconds: 1}) : endTemporal,
+    end: endTemporal,
     allDay,
     summary: summary?.trim() ?? null,
     location,

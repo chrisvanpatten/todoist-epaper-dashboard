@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Container from '@/components/Container';
 import Event from '@/components/Event';
 import Events from '@/components/Events';
-import TodoItems from '@/components/TodoItems';
+import TaskGroup from '@/components/TaskGroup';
 import getEvents from '@/api/calendar/getEvents';
 import getProjects from '@/api/todoist/getProjects';
 import getTasksByFilter from '@/api/todoist/getTasksByFilter';
@@ -16,21 +16,19 @@ export default function Dashboard(props) {
     taskGroups = [],
   } = props;
 
-  console.log(events.slice(0, 3));
-
   return (
     <Container orientation="horizontal" columns={true}>
       <Head>
         <title>Dashboard</title>
       </Head>
 
-      {taskGroups.map((taskGroup) => (
-        <TodoItems {...taskGroup} projects={projects} key={taskGroup.title} />
-      ))}
+      <section>
+        {taskGroups.map((taskGroup) => (
+          <TaskGroup {...taskGroup} projects={projects} key={taskGroup.title} />
+        ))}
+      </section>
 
-      <Events>
-        {events.map((event) => <Event {...event} key={event.summary} />)}
-      </Events>
+      <Events events={events} />
     </Container>
   )
 }
@@ -44,7 +42,14 @@ export async function getServerSideProps() {
         {
           title: 'Family',
           tasks: await getTasksByFilter('#👫 Family'),
-          displayDate: true,
+          showDate: true,
+          showProject: true,
+        },
+        {
+          title: 'Shopping List',
+          tasks: await getTasksByFilter('#🛒 Shopping List'),
+          showDate: false,
+          showProject: false,
         },
       ],
     },

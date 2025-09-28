@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Container from '@/components/Container';
-import TodoItem from '@/components/TodoItem';
-import TodoItems from '@/components/TodoItems';
+import TaskGroup from '@/components/TaskGroup';
 import getProjects from '@/api/todoist/getProjects';
 import getTasksByFilter from '@/api/todoist/getTasksByFilter';
 import getTitleFromTemporal from '@/utils/getTitleFromTemporal';
@@ -20,7 +19,7 @@ export default function Dashboard(props) {
       </Head>
 
       {taskGroups.map((taskGroup) => (
-        <TodoItems {...taskGroup} projects={projects} key={taskGroup.title} />
+        <TaskGroup {...taskGroup} projects={projects} key={taskGroup.title} />
       ))}
     </Container>
   )
