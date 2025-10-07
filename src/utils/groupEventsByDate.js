@@ -28,7 +28,7 @@ export default function groupEventsByDate(groupedEvents, event) {
 
   for (const date of dates) {
     // Handles multi-day events which started yesterday or earlier.
-    if (Temporal.Now.instant().since(date).total('hours') > 24) {
+    if (Temporal.Now.instant().since(date).total('hours') > 28) {
       continue;
     }
 
