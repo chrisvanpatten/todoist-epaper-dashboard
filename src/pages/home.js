@@ -8,6 +8,9 @@ import getProjects from '@/api/todoist/getProjects';
 import getTasksByFilter from '@/api/todoist/getTasksByFilter';
 import getTitleFromTemporal from '@/utils/getTitleFromTemporal';
 import {Temporal} from '@js-temporal/polyfill';
+import sortTasksByDate from '@/utils/sortTasksByDate';
+import sortTasksByChildOrder from '@/utils/sortTasksByChildOrder';
+import sortTasksByPriority from '@/utils/sortTasksByPriority';
 
 export default function Dashboard(props) {
   const {
@@ -41,13 +44,19 @@ export async function getServerSideProps() {
       taskGroups: [
         {
           title: 'Family',
-          tasks: await getTasksByFilter('#👫 Family'),
+          tasks: (await getTasksByFilter('#👫 Family & (today | overdue | 14 days)'))
+            .toSorted(sortTasksByChildOrder)
+            .toSorted(sortTasksByDate)
+            .toSorted(sortTasksByPriority),
           showDate: true,
           showProject: true,
         },
         {
           title: 'Shopping List',
-          tasks: await getTasksByFilter('#🛒 Shopping List'),
+          tasks: (await getTasksByFilter('#🛒 Shopping List'))
+            .toSorted(sortTasksByChildOrder)
+            .toSorted(sortTasksByDate)
+            .toSorted(sortTasksByPriority),
           showDate: false,
           showProject: false,
         },

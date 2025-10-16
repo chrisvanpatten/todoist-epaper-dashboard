@@ -15,7 +15,13 @@ async function screenshot(url, filename) {
   const browser = await chromium.launch();
   const page = await browser.newPage();
 
-  await page.goto(url);
+  const response = await page.goto(url);
+
+  if (!response.ok()) {
+    console.log(`${url} returned ${response.status()}`);
+    return;
+  }
+
   await page.screenshot({
     clip: {x: 0, y: 0, width: 800, height: 480},
     path: `public/${filename}.draft.png`,
@@ -29,12 +35,13 @@ async function imageHasChanged(filename) {
 
   // If the output image doesn't exist, that means it has changed!
   if (!fs.existsSync(outputImagePath)) {
+    console.log(`${outputImagePath} does not exist`);
     return true;
   }
 
   const {equal} = await looksSame(draftImagePath, outputImagePath);
 
-  return equal;
+  return !equal;
 }
 
 async function prepareAndMaybeWrite(filename) {
@@ -52,8 +59,10 @@ async function prepareAndMaybeWrite(filename) {
     })
     .write(draftImagePath);
 
+  const hasChanged = await imageHasChanged(filename);
+
   // Compare the draft to the current image.
-  if (!imageHasChanged(filename)) {
+  if (!hasChanged) {
     console.log(
       `${draftImagePath} is equal to ${outputImagePath}; skipping write`
     );
