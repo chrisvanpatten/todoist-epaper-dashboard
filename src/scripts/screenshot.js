@@ -13,21 +13,23 @@ function getFilePaths(filename) {
 
 async function screenshot(url, filename) {
   const browser = await chromium.launch();
-  const page = await browser.newPage();
+  try {
+    const page = await browser.newPage();
 
-  const response = await page.goto(url);
+    const response = await page.goto(url);
 
-  if (!response.ok()) {
-    console.log(`${url} returned ${response.status()}`);
-    return;
+    if (!response.ok()) {
+      console.log(`${url} returned ${response.status()}`);
+      return;
+    }
+
+    await page.screenshot({
+      clip: {x: 0, y: 0, width: 800, height: 480},
+      path: `public/${filename}.draft.png`,
+    });
+  } finally {
+    await browser.close();
   }
-
-  await page.screenshot({
-    clip: {x: 0, y: 0, width: 800, height: 480},
-    path: `public/${filename}.draft.png`,
-  });
-
-  await browser.close();
 }
 
 async function imageHasChanged(filename) {
