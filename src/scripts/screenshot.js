@@ -79,7 +79,7 @@ async function prepareAndMaybeWrite(filename) {
 }
 
 (async () => {
-  await screenshot('http://localhost:3000/', 'todo');
+  await screenshot('http://localhost:3000/todo', 'todo');
   await screenshot('http://localhost:3000/home', 'home');
 
   await prepareAndMaybeWrite('todo');

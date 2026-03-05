@@ -36,6 +36,7 @@ export default function TaskGroup(props) {
             key={task.id}
             dueDate={showDate && task?.due?.date}
             project={showProject && projects?.[task.projectId]}
+            priority={task.priority}
           >
             {task.content}
           </Task>

@@ -4,6 +4,7 @@ import TaskGroup from '@/components/TaskGroup';
 import getProjects from '@/api/todoist/getProjects';
 import getTasksByFilter from '@/api/todoist/getTasksByFilter';
 import getTitleFromTemporal from '@/utils/getTitleFromTemporal';
+import sortTasksByChildOrder from '@/utils/sortTasksByChildOrder';
 import sortTasksByDate from '@/utils/sortTasksByDate';
 import sortTasksByDayOrder from '@/utils/sortTasksByDayOrder';
 import sortTasksByPriority from '@/utils/sortTasksByPriority';
