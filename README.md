@@ -32,6 +32,23 @@ minutes.
 > page data has not changed. Hopefully this is addressed in future software
 > updates, but it is a limitation of the platform, not this dashboard.
 
+## Custom screenshots and ESPHome deployment
+
+You can also capture your own screenshots and send them to your E10001 by using
+the included screenshot script to capture the images and flashing your E10001
+with ESPHome and leveraging the "download_image" module to display the image on
+your device.
+
+This README will not cover the ESPHome portion as it can be device-specific.
+However, to get your screenshots captured, simply call the screenshot.sh shell
+script on a recurring basis from `cron`. This will cause the image to be updated
+and served out of Next.js, by placing the image asset in the public directory
+of Next.js.
+
+```
+*/1 * * * * ~/code/epaper-dashboard/src/scripts/screenshot.sh >> ~/code/epaper-dashboard/screenshot.log 2>&1
+```
+
 ## License
 
 Copyright © 2025 Chris Van Patten. Licensed under the MIT license.
