@@ -1,0 +1,84 @@
+esphome:
+  name: todo
+  platformio_options:
+    board_build.arduino.memory_type: opi_opi
+    board_build.f_psram: 80000000L
+
+esp32:
+  board: seeed_xiao_esp32s3
+  variant: esp32s3
+  framework:
+    type: arduino
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+# Enable logging
+logger:
+  level: VERY_VERBOSE
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  - platform: esphome
+    password: ""
+
+wifi:
+  ssid: "RoutersOfRohan"
+  password: "myprecious"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Todo Fallback Hotspot"
+    password: "olhYrbWdvvis"
+
+captive_portal:
+
+web_server:
+  port: 80
+    
+http_request:
+  verify_ssl: false
+  timeout: 30s
+
+online_image:
+  - id: dashboard_image
+    format: PNG
+    type: BINARY
+    buffer_size: 50000
+    url: https://cvpbian.walrus-city.ts.net/todo.png
+    update_interval: 60s
+    on_error:
+      lambda: |-
+        ESP_LOGD("online_image", "Error");
+    on_download_finished:
+      lambda: |-
+        if (!cached) {
+          ESP_LOGD("online_image", "Cache miss");
+          id(eink_display).update();
+        }
+
+spi:
+  clk_pin: GPIO7
+  mosi_pin: GPIO9
+
+display:
+  - platform: waveshare_epaper
+    id: eink_display
+    model: 7.50inV2p
+    cs_pin: GPIO10
+    dc_pin: GPIO11
+    reset_pin:
+      number: GPIO12
+      inverted: false
+    busy_pin:
+      number: GPIO13
+      inverted: true
+    update_interval: never
+    full_update_every: 3
+    lambda: |-
+      it.image(0, 0, id(dashboard_image), COLOR_OFF, COLOR_ON);
+

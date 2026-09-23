@@ -1,0 +1,74 @@
+esphome:
+  name: home
+
+esp32:
+  board: seeed_xiao_esp32s3
+  variant: esp32s3
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: VERY_VERBOSE
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  - platform: esphome
+    password: ""
+
+wifi:
+  ssid: "RoutersOfRohan"
+  password: "myprecious"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Home Fallback Hotspot"
+    password: "olhYrbWdvvis"
+
+captive_portal:
+    
+http_request:
+  verify_ssl: false
+  timeout: 30s
+
+online_image:
+  - id: dashboard_image
+    format: PNG
+    type: BINARY
+    buffer_size: 50000
+    url: https://cvpbian.walrus-city.ts.net/home.png
+    update_interval: 600s
+    on_error:
+      lambda: |-
+        ESP_LOGD("online_image", "Error");
+    on_download_finished:
+      lambda: |-
+        if (!cached) {
+          ESP_LOGD("online_image", "Cache miss");
+          id(eink_display).update();
+        }
+
+spi:
+  clk_pin: GPIO7
+  mosi_pin: GPIO9
+
+display:
+  - platform: waveshare_epaper
+    id: eink_display
+    model: 7.50inV2p
+    cs_pin: GPIO10
+    dc_pin: GPIO11
+    reset_pin:
+      number: GPIO12
+      inverted: false
+    busy_pin:
+      number: GPIO13
+      inverted: true
+    update_interval: never
+    full_update_every: 2
+    lambda: |-
+      it.image(0, 0, id(dashboard_image), COLOR_OFF, COLOR_ON);
+
